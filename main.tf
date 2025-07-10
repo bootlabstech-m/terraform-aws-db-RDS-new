@@ -30,8 +30,8 @@ resource "aws_db_instance" "db" {
   vpc_security_group_ids = var.vpc_security_group_ids
   snapshot_identifier    = var.snapshot_identifier
   publicly_accessible    = false
-  storage_encrypted      = true
-  license_model          = var.license_model
+  storage_encrypted           = true
+  license_model = var.license_model
   lifecycle {
     ignore_changes = [tags]
   }

@@ -77,7 +77,7 @@ variable "storage_type" {
   type        = string
 }
 variable "license_model" {
-  type        = string
-  default     = "license-included"
-  description = "licence model for the db"
+  type = string
+  default = "license-included"
+  description = "licence model"
 }
