@@ -10,8 +10,8 @@ resource "random_password" "sql_password" {
   special          = true
   upper            = true
   lower            = true
-  number           = true
-  override_special = "-_!#^~%@'/"
+  number          = true
+  override_special = "!#%^*_+=-"
 }
 
 resource "aws_db_instance" "db" {
