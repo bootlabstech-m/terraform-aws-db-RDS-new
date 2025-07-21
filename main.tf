@@ -3,14 +3,14 @@ resource "random_string" "sql_server_suffix" {
   special = false
   upper   = false
   lower   = true
-  number  = true
+  numeric  = true
 }
 resource "random_password" "sql_password" {
   length           = 16
   special          = true
   upper            = true
   lower            = true
-  number          = true
+  numeric          = true
   override_special = "!#%^*_+=-"
 }
 

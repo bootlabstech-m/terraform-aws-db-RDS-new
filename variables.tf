@@ -28,11 +28,7 @@ variable "db_username" {
   type        = string
 
 }
-# variable "db_password" {
-#   description = "db_password"
-#   type        = string
 
-# }
 variable "parameter_group_name" {
   description = "parameter_group_name"
   type        = string
