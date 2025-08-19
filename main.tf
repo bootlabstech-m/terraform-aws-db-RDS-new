@@ -3,7 +3,7 @@ resource "random_string" "sql_server_suffix" {
   special = false
   upper   = false
   lower   = true
-  numeric  = true
+  numeric = true
 }
 resource "random_password" "sql_password" {
   length           = 16
@@ -29,9 +29,9 @@ resource "aws_db_instance" "db" {
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.id
   vpc_security_group_ids = var.vpc_security_group_ids
   snapshot_identifier    = var.snapshot_identifier
-  publicly_accessible    = false
-  storage_encrypted           = true
-  license_model = var.license_model
+  publicly_accessible    = var.publicly_accessible
+  storage_encrypted      = var.storage_encrypted
+  license_model          = var.license_model
   lifecycle {
     ignore_changes = [tags]
   }
