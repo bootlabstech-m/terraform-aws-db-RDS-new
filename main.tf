@@ -1,10 +1,4 @@
-resource "random_string" "sql_server_suffix" {
-  length  = 4
-  special = false
-  upper   = false
-  lower   = true
-  numeric = true
-}
+# Existing password generator
 resource "random_password" "sql_password" {
   length           = 16
   special          = true
@@ -13,6 +7,31 @@ resource "random_password" "sql_password" {
   numeric          = true
   override_special = "!#%^*_+=-"
 }
+
+######################################
+# Store DB credentials in Secrets Manager
+######################################
+
+# Create the secret container
+resource "aws_secretsmanager_secret" "db_secret" {
+  name        = "${var.db_identifier}-db-credentials"
+  description = "RDS DB credentials (username, password, endpoint) for ${var.db_identifier}"
+}
+
+# Store username, password, and endpoint in JSON format
+resource "aws_secretsmanager_secret_version" "db_secret_version" {
+  secret_id = aws_secretsmanager_secret.db_secret.id
+  secret_string = jsonencode({
+    username = var.db_username
+    password = random_password.sql_password.result
+    endpoint = aws_db_instance.db.address
+  })
+  depends_on = [aws_db_instance.db]
+}
+
+######################################
+# RDS Instance
+######################################
 
 resource "aws_db_instance" "db" {
   identifier             = var.db_identifier
@@ -32,13 +51,16 @@ resource "aws_db_instance" "db" {
   publicly_accessible    = var.publicly_accessible
   storage_encrypted      = var.storage_encrypted
   license_model          = var.license_model
+
   lifecycle {
     ignore_changes = [tags]
   }
 }
+
 resource "aws_db_subnet_group" "db_subnet_group" {
   name       = var.db_subnet_group_name
   subnet_ids = var.subnet_ids
+
   lifecycle {
     ignore_changes = [tags]
   }
