@@ -9,6 +9,14 @@ resource "random_password" "sql_password" {
 }
 
 ######################################
+# to fetch existing key automatically using Key Alias
+######################################
+
+data "aws_kms_key" "existing" {
+  key_id = var.kms_key_alias
+}
+
+######################################
 # Store DB credentials in Secrets Manager
 ######################################
 
@@ -51,7 +59,7 @@ resource "aws_db_instance" "db" {
   publicly_accessible    = var.publicly_accessible
   storage_encrypted      = var.storage_encrypted
   license_model          = var.license_model
-  kms_key_id             = var.kms_key_arn
+  kms_key_id             = data.aws_kms_key.existing.arn
   lifecycle {
     ignore_changes = [tags]
   }

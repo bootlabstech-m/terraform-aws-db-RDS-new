@@ -97,7 +97,8 @@ variable "license_model" {
   default     = "license-included"
 }
 
-variable "kms_key_arn" {
+variable "kms_key_alias" {
   type        = string
   description = "ARN of the existing Customer Managed KMS Key used to encrypt the RDS database storage"
+  default     = "alias/mm_cmk_kms"
 }
