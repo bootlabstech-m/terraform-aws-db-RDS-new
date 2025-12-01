@@ -96,3 +96,8 @@ variable "license_model" {
   type        = string
   default     = "license-included"
 }
+
+variable "kms_key_arn" {
+  type        = string
+  description = "ARN of the existing Customer Managed KMS Key used to encrypt the RDS database storage"
+}

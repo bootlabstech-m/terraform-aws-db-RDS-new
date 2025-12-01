@@ -51,7 +51,7 @@ resource "aws_db_instance" "db" {
   publicly_accessible    = var.publicly_accessible
   storage_encrypted      = var.storage_encrypted
   license_model          = var.license_model
-
+  kms_key_id             = var.kms_key_arn
   lifecycle {
     ignore_changes = [tags]
   }
