@@ -60,6 +60,9 @@ resource "aws_db_instance" "db" {
   storage_encrypted      = var.storage_encrypted
   license_model          = var.license_model
   kms_key_id             = data.aws_kms_key.existing.arn
+  backup_retention_period = var.backup_retention_period  
+  backup_window           = var.backup_window            
+  copy_tags_to_snapshot   = true
   lifecycle {
     ignore_changes = [tags]
   }

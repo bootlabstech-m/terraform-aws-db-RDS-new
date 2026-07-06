@@ -102,3 +102,14 @@ variable "kms_key_alias" {
   description = "ARN of the existing Customer Managed KMS Key used to encrypt the RDS database storage"
   default     = "alias/mm_cmk_kms"
 }
+
+variable "backup_window" {
+  description = "Daily backup start time in UTC (HH:MM format)"
+  type        = string
+  default     = "15:00"
+}
+variable "backup_retention_period" {
+  description = "Number of automated backups to retain"
+  type        = number
+  default     = 7
+}
